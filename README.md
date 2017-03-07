@@ -1,4 +1,4 @@
-# CSCE606Project_Team_DeadPool
+# CSCE606Project_Team_Deadpool
 
 #### The customer would like us to add new features and fix some bugs in the Faculty Progress Report code.
 ###### 1. Exporting to Excel:
