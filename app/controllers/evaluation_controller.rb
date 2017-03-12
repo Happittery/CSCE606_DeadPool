@@ -58,6 +58,7 @@ class EvaluationController < ApplicationController
 
   def build_eval_groups
     @terms = Evaluation.pluck(:term).uniq.sort.reverse
+  
     @instructor_names = Instructor.pluck(:name).uniq.sort
 
     @course_names = []
@@ -191,7 +192,7 @@ class EvaluationController < ApplicationController
           "term IN (?) AND subject IN (?) AND course IN (?) AND instructor_id IN (?)" + query_append, t, subj, course, instructor_id).default_sorted_groups
       end
     end
-
+    @test = @evaluation_groups.delete("term")
     return @evaluation_groups
   end
 
