@@ -200,14 +200,14 @@ class EvaluationController < ApplicationController
         semester = evaluation.term[4]
         
         if semester == "A"
-           term = "SP"+ y[2..3]
+           t = "SP"+ year[2..3]
         elsif semester == "B"
-              term = "SU" + y[2..3]
+              t = "SU" + year[2..3]
         elsif semester == "C"
-              term = "FA" + y[2..3]
+              t = "FA" + year[2..3]
         end
         
-        evaluation.term = term
+        evaluation.term = t
         @test << evaluation
       end
       @testgroup << @test
