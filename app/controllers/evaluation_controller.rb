@@ -192,22 +192,23 @@ class EvaluationController < ApplicationController
       end
     end
     
-@testgroup = []
+    @testgroup = []
     @test = []
     @evaluation_groups.each do |group|
-      group.each do |e|
-        y = e.term[0..3]
-        s = e.term[4]
-        if s == "A"
-          t = "SP"+ y[2..3]
-        elsif s == "B"
-          t = "SU" + y[2..3]
-        elsif s == "C"
-          t = "FA" + y[2..3]
-        end
-        e.term = t
-        @test << e
+      group.each do |evaluation|
+        year = evaluation.term[0..3]
+        semester = evaluation.term[4]
         
+        if semester == "A"
+           term = "SP"+ y[2..3]
+        elsif semester == "B"
+              term = "SU" + y[2..3]
+        elsif semester == "C"
+              term = "FA" + y[2..3]
+        end
+        
+        evaluation.term = term
+        @test << evaluation
       end
       @testgroup << @test
     end
