@@ -11,5 +11,10 @@ require 'rails_helper'
 #   end
 # end
 RSpec.describe CourseNameHelper, type: :helper do
-  pending "add some examples to (or delete) #{__FILE__}"
+    #it "redirects the user to the login page if they are unauthenticated" do
+    #sign_out @user
+    #get :index
+    #expect(response).to redirect_to(new_user_session_path)
+  #end
+  #pending "add some examples to (or delete) #{__FILE__}"
 end

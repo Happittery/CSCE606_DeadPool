@@ -11,5 +11,16 @@ require 'rails_helper'
 #   end
 # end
 RSpec.describe AdminHelper, type: :helper do
-  pending "add some examples to (or delete) #{__FILE__}"
+    before(:each) do
+    @user1 = FactoryGirl.create(:user, email: "niloofar@example.com")
+    @user2 = FactoryGirl.create(:user, email: "zarei@example.com")
+    @user3 = FactoryGirl.create(:user, email: "zarei2@example.com")
+    @user1.add_role(:admin)
+    @user2.add_role(:admin)
+    @user3.add_role(:guest)
+    #sign_in @user1
+  end
+
+  
+  #pending "add some examples to (or delete) #{__FILE__}"
 end
