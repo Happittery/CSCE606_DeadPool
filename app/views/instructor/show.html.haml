@@ -59,3 +59,6 @@
   %tr.gray-highlight
     %td{colspan: 2} TOTAL NUMBER OF STUDENTS
     %td{colspan: 2}= @instructor.course_section_groups.map { |course_section_group| compute_total_enrollment(course_section_group) }.reduce(:+)
+
+
+= @testgroup

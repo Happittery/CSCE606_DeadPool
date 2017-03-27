@@ -14,6 +14,22 @@ class InstructorController < ApplicationController
     @instructor = Instructor.find(id)
     @instructor_course_groups = @instructor.course_section_groups.sort { |group1, group2| group2.first.term <=> group1.first.term }
     @all_course_groups = Evaluation.no_missing_data.default_sorted_groups
+    
+    #@testgroup = []
+    #@instructor_course_groups.each do |group|
+        #year = group.first.term[0..3]
+        #semester = group.first.term[4] 
+        #@testgroup << year << semester
+        #if semester == "A"
+         #  group.first.term = "SP"+ year[2..3]
+        #elsif semester == "B"
+         #     group.first.term = "SU" + year[2..3]
+        #elsif semester == "C"
+         #     group.first.term = "FA" + year[2..3]
+        #end
+      #@testgroup << group.first.term
+       #end
+      
   end
 
   def update

@@ -16,7 +16,8 @@ class InstructorReportExporter
 
   def initialize(instructor, evaluation_groups)
     @instructor = instructor
-    @course_groups = instructor.course_section_groups
+    #@course_groups = instructor.course_section_groups
+    @course_groups = @instructor.course_section_groups.sort { |group1, group2| group2.first.term <=> group1.first.term }
     @evaluation_groups = evaluation_groups
   end
 
