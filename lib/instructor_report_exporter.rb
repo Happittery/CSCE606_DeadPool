@@ -16,7 +16,7 @@ class InstructorReportExporter
 
   def initialize(instructor, evaluation_groups)
     @instructor = instructor
-    @course_groups = instructor.course_section_groups
+    @course_groups = @instructor.course_section_groups.sort { |group1, group2| group2.first.term <=> group1.first.term }
     @evaluation_groups = evaluation_groups
   end
 
@@ -28,7 +28,7 @@ class InstructorReportExporter
       @course_groups.each do |courses|
         course_data = []
         course_data.push(get_complete_name(courses.first))
-        course_data.push(courses.first.term)
+        course_data.push(term_format(courses.first.term))
         course_data.push(compute_total_enrollment(courses))
         course_data.push(compute_mean_student_eval_score(courses).round(2))
         course_data.push(compute_course_level_average(courses,@evaluation_groups).round(2))

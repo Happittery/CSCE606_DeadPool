@@ -9,6 +9,19 @@ module InstructorHelper
 
     return name
   end
+  
+  def term_format(term)
+    year = term[0..3]
+    semester = term[4] 
+    if semester == "A"
+      t = "SP"+ year[2..3]
+    elsif semester == "B"
+      t = "SU" + year[2..3]
+    elsif semester == "C"
+      t = "FA" + year[2..3]
+    end
+    return t
+  end
 
   def get_complete_name(course)
     complete_name = course.subject_course;
