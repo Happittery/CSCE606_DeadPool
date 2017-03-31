@@ -18,6 +18,7 @@ class Evaluation < ActiveRecord::Base
     message: "must be four capital letters." }
   validates :course, presence: true, numericality: { only_integer: true }
   validates :section, presence: true, numericality: { only_integer: true }
+  validates :responses, numericality: { only_integer: true, allow_blank: true }
   validates :enrollment, numericality: { only_integer: true, allow_blank: true }
   validates :item1_mean, numericality: { allow_blank: true}, inclusion: { in: 0..5, message: "must be between 0 and 5." }
   validates :item2_mean, numericality: { allow_blank: true}, inclusion: { in: 0..5, message: "must be between 0 and 5." }
@@ -146,6 +147,7 @@ class Evaluation < ActiveRecord::Base
       section,
       course_name,
       instructor.name,
+      responses,
       enrollment,
       item1_mean,
       item2_mean,

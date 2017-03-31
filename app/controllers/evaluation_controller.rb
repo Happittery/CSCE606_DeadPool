@@ -357,7 +357,7 @@ class EvaluationController < ApplicationController
   end
 
   def evaluation_params
-    params.require(:evaluation).permit(:term, :subject, :course, :section, :instructor_id,
+    params.require(:evaluation).permit(:term, :subject, :course, :section, :instructor_id, :responses,
                                        :enrollment, :item1_mean, :item2_mean, :item3_mean, :item4_mean, :item5_mean,
                                        :item6_mean, :item7_mean, :item8_mean, :Itemz, :instructor,:course_name, :gpr, :course_level_filter).to_h.symbolize_keys!
   end
