@@ -10,6 +10,7 @@ Given(/^There exists (\d+) groups? of (\d+) evaluation records in the database f
         course: (110 + g).to_s,
         section: (500 + i).to_s,
         instructor: instructor,
+        responses: '0',
         enrollment: prng.rand(20..50),
         item1_mean: prng.rand(3.0..5.0).round(2),
         item2_mean: prng.rand(3.0..5.0).round(2),

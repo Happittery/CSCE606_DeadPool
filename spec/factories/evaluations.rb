@@ -5,6 +5,7 @@ FactoryGirl.define do
     course '121'
     section '501'
     association :instructor, factory: :instructor
+    responses '50'
     enrollment '50'
     item1_mean '4.32'
     item2_mean '4.32'
