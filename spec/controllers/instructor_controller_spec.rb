@@ -100,7 +100,7 @@ RSpec.describe InstructorController, type: :controller do
       get :export, id: 1
       csv = CSV.parse(response.body)
       expect(csv[3][1]).to eq("FA15")
+      expect(csv[5][1]).to eq("SU15")
     end
-
   end
 end

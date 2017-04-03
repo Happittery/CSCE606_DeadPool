@@ -17,6 +17,19 @@ RSpec.describe InstructorHelper, type: :helper do
     it "#is_honors" do
       expect(is_honors(221)).to eq("H")
       expect(is_honors(121)).to eq("")
+    end 
+  end
+  
+  describe "#term_format" do
+    it "assigns the instructors course groups in term descending order" do
+      inst = FactoryGirl.create(:instructor)
+      first = FactoryGirl.create(:evaluation, instructor: inst, subject: "CSCE", course: "121", term: '2015C')
+      second = FactoryGirl.create(:evaluation, instructor: inst, subject: "CSCE", course: "121", term: '2015B')
+      third = FactoryGirl.create(:evaluation, instructor: inst, subject: "CSCE", course: "121", term: '2010A')
+
+      expect(helper.term_format(first.term)).to eq("FA15")
+      expect(helper.term_format(second.term)).to eq("SU15")
+      expect(helper.term_format(third.term)).to eq("SP10")
     end
   end
 end
