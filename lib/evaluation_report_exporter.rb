@@ -37,7 +37,7 @@ class EvaluationReportExporter
         end
 
         formula_data = ["Total"]
-        5.times { formula_data.push("") }
+        6.times { formula_data.push("") }
         formula_data.push(compute_total_enrollment(group))
 
         (1..8).each do |x|

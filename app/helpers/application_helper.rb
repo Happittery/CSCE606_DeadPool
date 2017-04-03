@@ -1,4 +1,5 @@
 module ApplicationHelper
+  
   def compute_total_enrollment(group)
     group.map(&:enrollment).inject(:+)
   end
