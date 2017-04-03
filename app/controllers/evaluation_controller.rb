@@ -12,7 +12,8 @@ class EvaluationController < ApplicationController
       redirect_to evaluation_index_path
     end
   end
-
+  
+  
   def create
     key_attrs, other_attrs = split_attributes(evaluation_params)
 
@@ -56,6 +57,7 @@ class EvaluationController < ApplicationController
     end
   end
 
+
   def build_eval_groups
     @terms = Evaluation.pluck(:term).uniq.sort.reverse
     @instructor_names = Instructor.pluck(:name).uniq.sort
@@ -81,7 +83,7 @@ class EvaluationController < ApplicationController
 
     year = params[:year]
     semester = params[:semester]
-    instructor_name = params[:instructor_name]
+    instructor_name = params[:instructor_name] 
     course_name = params[:course_name]
     course_level_filter = params[:course_level_filter]
 

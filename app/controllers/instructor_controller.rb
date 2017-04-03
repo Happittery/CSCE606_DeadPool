@@ -8,6 +8,13 @@ class InstructorController < ApplicationController
     # return the instructors in sorted order by last name
     instructors_with_enrollment_data = Evaluation.no_missing_data.pluck(:instructor_id).uniq
     @instructors =Instructor.where(id: instructors_with_enrollment_data).sort { |a, b| a.name.split(" ").last <=> b.name.split(" ").last }
+    #logger.debug "New name: #{@instructors}"
+  end
+  
+  def sort
+    instructors_with_enrollment_data = Evaluation.no_missing_data.pluck(:instructor_id).uniq
+    @instructors =Instructor.where(id: instructors_with_enrollment_data).sort { |a, b| a.name.split(" ").last <=> b.name.split(" ").last }
+    
   end
 
   def show
@@ -15,7 +22,7 @@ class InstructorController < ApplicationController
     @instructor_course_groups = @instructor.course_section_groups.sort { |group1, group2| group2.first.term <=> group1.first.term }
     @all_course_groups = Evaluation.no_missing_data.default_sorted_groups
   end
-
+  
   def update
     @instructor = Instructor.find(id)
 

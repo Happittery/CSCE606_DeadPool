@@ -10,6 +10,20 @@ module InstructorHelper
     return name
   end
   
+  def put_last_name(name)
+    last_name = name.split(" ").last
+    first_name = name.split(" ")
+    first_name.delete(first_name.last)
+    first_name.join(" ")
+    first_name.to_s
+    full_name = last_name + ", "
+    for words in first_name
+        full_name = full_name + words + " "
+    end   
+    #full_name.to_s
+    return full_name
+  end
+   
   def term_format(term)
     year = term[0..3]
     semester = term[4] 
