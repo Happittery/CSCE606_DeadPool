@@ -72,10 +72,10 @@ RSpec.describe InstructorController, type: :controller do
   describe "GET #export" do
     before :each do
       instructor = FactoryGirl.create(:instructor, name: 'Bob')
-      FactoryGirl.create(:evaluation, subject: 'CSCE', course: '123', term: '2015C', section: '501', enrollment: '25', item1_mean: '4.5', instructor_id: instructor.id)
-      FactoryGirl.create(:evaluation, subject: 'CSCE', course: '123', term: '2015C', section: '502', enrollment: '25', item1_mean: '4.5', instructor_id: instructor.id)
-      FactoryGirl.create(:evaluation, subject: 'CSCE', course: '123', term: '2015B', section: '501', enrollment: '25', item1_mean: '4.5', instructor_id: instructor.id)
-      FactoryGirl.create(:evaluation, subject: 'CSCE', course: '681', term: '2015C', section: '201', enrollment: '25', item1_mean: '4.5', instructor_id: instructor.id)
+      FactoryGirl.create(:evaluation, subject: 'CSCE', course: '123', term: '2015C', section: '501', responses: '20', enrollment: '25', item1_mean: '4.5', instructor_id: instructor.id)
+      FactoryGirl.create(:evaluation, subject: 'CSCE', course: '123', term: '2015C', section: '502', responses: '20', enrollment: '25', item1_mean: '4.5', instructor_id: instructor.id)
+      FactoryGirl.create(:evaluation, subject: 'CSCE', course: '123', term: '2015B', section: '501', responses: '20', enrollment: '25', item1_mean: '4.5', instructor_id: instructor.id)
+      FactoryGirl.create(:evaluation, subject: 'CSCE', course: '681', term: '2015C', section: '201', responses: '20', enrollment: '25', item1_mean: '4.5', instructor_id: instructor.id)
       FactoryGirl.create(:course_name, subject_course: 'CSCE 681', name: "Advanced Compiler")
     end
 
@@ -87,7 +87,7 @@ RSpec.describe InstructorController, type: :controller do
     it "correctly totals the students for all sections" do
       get :export, id: 1
       csv = CSV.parse(response.body)
-      expect(csv[4][2]).to eq("50")
+      expect(csv[3][2]).to eq("50")
     end
 
     it "has a separate entry for the same course in different terms" do
