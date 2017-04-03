@@ -96,5 +96,11 @@ RSpec.describe InstructorController, type: :controller do
       expect(csv.size).to eq(6) # total enrollment
     end
 
+    it "assigns the instructors course groups in term descending order" do
+      get :export, id: 1
+      csv = CSV.parse(response.body)
+      expect(csv[3][1]).to eq("FA15")
+    end
+
   end
 end
