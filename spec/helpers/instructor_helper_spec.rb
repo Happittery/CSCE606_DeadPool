@@ -21,7 +21,7 @@ RSpec.describe InstructorHelper, type: :helper do
   end
   
   describe "#term_format" do
-    it "assigns the instructors course groups in term descending order" do
+    it "verifies terms were converted to SP/SU/FA format" do
       inst = FactoryGirl.create(:instructor)
       first = FactoryGirl.create(:evaluation, instructor: inst, subject: "CSCE", course: "121", term: '2015C')
       second = FactoryGirl.create(:evaluation, instructor: inst, subject: "CSCE", course: "121", term: '2015B')
