@@ -86,11 +86,11 @@ RSpec.describe InstructorController, type: :controller do
     
     #testing: check if total number of responses were exported in csv from
     # instructor page
-    #it "correctly totals the students for all sections" do
-    #  get :export, id: 1
-    #  csv = CSV.parse(response.body)
-    #  expect(csv[3][2]).to eq("40")
-    #end
+    it "correctly totals the students for all sections" do
+      get :export, id: 1
+      csv = CSV.parse(response.body)
+      expect(csv[3][2]).to eq("40")
+    end
 
     it "correctly totals the students for all sections" do
       get :export, id: 1
