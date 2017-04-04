@@ -20,7 +20,6 @@ module InstructorHelper
     for words in first_name
         full_name = full_name + words + " "
     end   
-    #full_name.to_s
     return full_name
   end
   
@@ -28,7 +27,6 @@ module InstructorHelper
     inst = Instructor.order(:name).where(status)
     inst = inst.sort { |a, b| a.name.split(" ").last <=> b.name.split(" ").last }
     return inst
-
   end
    
   def term_format(term)
