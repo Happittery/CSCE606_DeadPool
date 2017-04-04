@@ -15,21 +15,21 @@ Then(/^User should see ([0-9]+) new GPRs imported. ([0-9]+) evaluation GPRs upda
 end
 
 Then(/^User should only see instructors who were in the PICA data$/) do
-  page.should have_no_content("WILLIAMS T")
-  page.should have_no_content("HURLEY J")
-  page.should have_content("Gooch B")
-  page.should have_no_content("WELCH J")
-  page.should have_content("Daugherity W")
-  page.should have_content("Brent Walther")
-  page.should have_no_content("Scott Deaton")
+  page.should have_no_content("Williams, T ")
+  page.should have_no_content("Hurley, J ")
+  page.should have_content("B, Gooch ")
+  page.should have_no_content("Welch, J ")
+  page.should have_content("W, Daugherity ")
+  page.should have_content("Walther, Brent ")
+  page.should have_no_content("Scott, Deaton ")
 end
 
 Then(/^User should only see instructors who were in the GPR data$/) do
   page.should have_no_content("Tiffani Williams")
   page.should have_content("Hurley J")
-  page.should have_content("Jennifer Welch")
+  page.should have_content("Welch, Jennifer ")
   page.should have_content("Daugherity W")
-  page.should have_content("Gooch B")
+  page.should have_content("B, Gooch ")
 end
 
 Then(/^User should see a GPR of ([0-4]\.[0-9]+)$/) do |gpr|
