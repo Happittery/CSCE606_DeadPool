@@ -23,6 +23,13 @@ module InstructorHelper
     #full_name.to_s
     return full_name
   end
+  
+  def inst_list(status)
+    inst = Instructor.order(:name).where(status)
+    inst = inst.sort { |a, b| a.name.split(" ").last <=> b.name.split(" ").last }
+    return inst
+
+  end
    
   def term_format(term)
     year = term[0..3]
