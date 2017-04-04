@@ -128,7 +128,9 @@
           %td.gray-highlight
             %b Total
 
-          %td.gray-highlight{colspan: 7}
+          %td.gray-highlight{colspan: 6}
+          %td.gray-highlight
+            %b= compute_total_responses(group)
           %td.gray-highlight
             %b= compute_total_enrollment(group)
           - (1..8).each do |x|

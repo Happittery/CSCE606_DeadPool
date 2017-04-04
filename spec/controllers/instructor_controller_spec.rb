@@ -83,18 +83,32 @@ RSpec.describe InstructorController, type: :controller do
       get :export, id: 1
       expect { CSV.parse(response.body) }.to_not raise_error
     end
+    
+    #testing: check if total number of responses were exported in csv from
+    # instructor page
+    it "correctly totals the students for all sections" do
+      get :export, id: 1
+      csv = CSV.parse(response.body)
+      expect(csv[3][2]).to eq("40")
+    end
 
     it "correctly totals the students for all sections" do
       get :export, id: 1
       csv = CSV.parse(response.body)
-      expect(csv[3][2]).to eq("50")
+      expect(csv[3][3]).to eq("50")
     end
-
+    
     it "has a separate entry for the same course in different terms" do
       get :export, id: 1
       csv = CSV.parse(response.body)
       expect(csv.size).to eq(6) # total enrollment
     end
 
+    it "assigns the instructors course groups in term descending order" do
+      get :export, id: 1
+      csv = CSV.parse(response.body)
+      expect(csv[3][1]).to eq("FA15")
+      expect(csv[5][1]).to eq("SU15")
+    end
   end
 end

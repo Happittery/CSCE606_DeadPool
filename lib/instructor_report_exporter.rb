@@ -7,6 +7,7 @@ class InstructorReportExporter
   HEADINGS = [
     "Undergraduate and Graduate Courses Taught",
     "Semester",
+    "No. of Responses",
     "No. of Students Enrolled",
     "Mean Student Evaluation Score",
     "Dept Avg Student Evaluation Score for Equivalent Level Courses",
@@ -29,6 +30,7 @@ class InstructorReportExporter
         course_data = []
         course_data.push(get_complete_name(courses.first))
         course_data.push(term_format(courses.first.term))
+        course_data.push(compute_total_responses(courses))
         course_data.push(compute_total_enrollment(courses))
         course_data.push(compute_mean_student_eval_score(courses).round(2))
         course_data.push(compute_course_level_average(courses,@evaluation_groups).round(2))
