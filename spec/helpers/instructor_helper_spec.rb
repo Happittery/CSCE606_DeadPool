@@ -32,4 +32,26 @@ RSpec.describe InstructorHelper, type: :helper do
       expect(helper.term_format(third.term)).to eq("SP10")
     end
   end
+  
+  describe "#put_last_name" do
+    it "returns last name then first name" do
+      inst = "Ben White"
+      inst2 = "John Smith Doe"
+      expect(helper.put_last_name(inst)).to eq("White, Ben ")
+      expect(helper.put_last_name(inst2)).to eq("Doe, John Smith ")
+    end
+  end
+  
+  describe "#inst_list" do
+    it "returns sorted instructor list" do
+      inst = FactoryGirl.create(:instructor)
+      FactoryGirl.create(:evaluation, instructor: inst, subject: "CSCE", course: "121")
+      inst2 = FactoryGirl.create(:instructor)
+      FactoryGirl.create(:evaluation, instructor: inst2, subject: "CSCE", course: "121")
+
+      expect(helper.inst_list("status IS NULL")[0].name).to eq(inst.name)
+      expect(helper.inst_list("status IS NULL")[1].name).to eq(inst2.name)
+    end
+  end
+  
 end
