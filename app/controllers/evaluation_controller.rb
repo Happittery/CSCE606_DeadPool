@@ -255,6 +255,14 @@ class EvaluationController < ApplicationController
       redirect_to evaluation_index_path
     end
   end
+  
+  def import_history
+    if can? :write, :all
+      render layout: "layouts/centered_form"
+    else
+      redirect_to evaluation_index_path
+    end
+  end
 
   def export
     if can? :read, :all
