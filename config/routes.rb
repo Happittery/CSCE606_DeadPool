@@ -30,12 +30,14 @@ Rails.application.routes.draw do
   resources :evaluation do
     get  'import',       on: :collection
     get  'import_gpr',   on: :collection
+    get 'import_history',on: :collection
     get  'export',       on: :member
     get  'missing_data', on: :collection
     get  'show',         on: :collection
     post 'create',       on: :collection
     post 'upload',       on: :collection
     post 'upload_gpr',   on: :collection
+    post'upload_history',on: :collection
   end
 
   resources :instructor do

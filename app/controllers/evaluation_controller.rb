@@ -256,6 +256,14 @@ class EvaluationController < ApplicationController
     end
   end
 
+  def import_history
+    if can? :write, :all
+      render layout: "layouts/centered_form"
+    else
+      redirect_to evaluation_index_path
+    end
+  end
+  
   def export
     if can? :read, :all
       @evaluation_groups = build_eval_groups()
@@ -316,6 +324,29 @@ class EvaluationController < ApplicationController
     redirect_to import_evaluation_index_path
   end
 
+  def upload_history
+    if params[:data_file] != nil
+      file = params[:data_file]
+      filename = file.original_filename
+      importer = ::PicaReportImporter.new(params.require(:data_file).tempfile, filename)
+      importer.import
+      results = importer.results
+
+      flash[:notice] = "#{results[:created]} new historical evaluation data imported. #{results[:updated]} evaluations updated. #{results[:failed]} historical evaluations were not imported."
+      redirect_to evaluation_index_path
+    else
+      flash[:errors] = "File not attached, please select file to upload"
+      redirect_to import_history_evaluation_index_path
+    end
+    
+  rescue ::PicaReportImporter::MalformedFileException => ex
+    flash[:errors] = ex.to_s
+    redirect_to import_history_evaluation_index_path
+  rescue
+    flash[:errors] = "There was an error parsing your Excel file. Maybe it is corrupt?"
+    redirect_to import_history_evaluation_index_path
+  end
+  
   def upload_gpr
     unless params[:term] && params[:term].match(/\A[12][0-9]{3}[A-Z]\z/)
       flash[:errors] = "Term is either missing or in the incorrect format."
@@ -335,7 +366,7 @@ class EvaluationController < ApplicationController
 
     flash[:notice] = "#{results[:created]} new GPRs imported. #{results[:updated]} evaluation GPRs updated. #{results[:failed]} evaluation GPRs were not imported."
     redirect_to evaluation_index_path
-  rescue PDF::Reader::MalformedPDFError => ex
+  rescue PDF::Reader::MalformedPDFError => ex.to_s
     flash[:errors] = "There was an error parsing that PDF file. Maybe it is corrupt?"
     redirect_to import_gpr_evaluation_index_path
   end
