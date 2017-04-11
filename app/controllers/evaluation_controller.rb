@@ -351,7 +351,7 @@ class EvaluationController < ApplicationController
     if params[:data_file] != nil
       file = params[:data_file]
       filename = file.original_filename
-      importer = ::PicaReportImporter.new(params.require(:data_file).tempfile, filename)
+      importer = ::HistoryReportImporter.new(params.require(:data_file).tempfile, filename)
       importer.import
       results = importer.results
 
@@ -361,7 +361,7 @@ class EvaluationController < ApplicationController
       flash[:errors] = "File not attached, please select file to upload"
       redirect_to import_history_evaluation_index_path
     end
-  rescue ::PicaReportImporter::MalformedFileException => ex
+  rescue ::HistoryReportImporter::MalformedFileException => ex
     flash[:errors] = ex.to_s
     redirect_to import_history_evaluation_index_path
   rescue
