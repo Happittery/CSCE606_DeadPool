@@ -159,7 +159,6 @@ class HistoryReportImporter
         historys.push(history) if history.values.reject(&:nil?).size > 0
       end
     end
-    
     historys
   end
 end
