@@ -1,5 +1,4 @@
 class AddColumnsToEvaluation < ActiveRecord::Migration
-    
   def change
     add_column :evaluations, :mses, :decimal
     add_column :evaluations, :dae, :decimal
@@ -7,5 +6,4 @@ class AddColumnsToEvaluation < ActiveRecord::Migration
     add_column :evaluations, :dang, :decimal
     add_column :evaluations, :history, :integer
   end
-  
 end
