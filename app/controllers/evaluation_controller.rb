@@ -343,7 +343,7 @@ class EvaluationController < ApplicationController
 
     flash[:notice] = "#{results[:created]} new GPRs imported. #{results[:updated]} evaluation GPRs updated. #{results[:failed]} evaluation GPRs were not imported."
     redirect_to evaluation_index_path
-  rescue PDF::Reader::MalformedPDFError => ex.to_s
+  rescue PDF::Reader::MalformedPDFError => ex
     flash[:errors] = "There was an error parsing that PDF file. Maybe it is corrupt?"
     redirect_to import_gpr_evaluation_index_path
   end

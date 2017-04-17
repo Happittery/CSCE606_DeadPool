@@ -1,5 +1,4 @@
 require 'roo'
-require 'roo'
 require 'roo-xls'
 require 'rubyXL'
 require 'fileutils'
