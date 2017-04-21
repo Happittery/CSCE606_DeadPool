@@ -133,31 +133,69 @@ class HistoryReportImporter
       end
     elsif @extension == 'xls'
       @workbook.default_sheet = @workbook.sheets.first
-
-      # figure out the columns of the data from the headers
-      column_header_indices = {}
-
-      @workbook.row(1).each_with_index { |header, i|
-        column_header_indices[header.downcase.to_sym] = i
-      }
-
-      ((@workbook.first_row + 1)..@workbook.last_row).each_with_index do |row, row_num|
-        history = {}
-        DESIRED_DATA.each do |data_type|
-          row_index = column_header_indices[data_type]
-          raise MalformedFileException.new if row_index.nil?
-          cell = @workbook.cell(row_num + 2, row_index + 1)
-
-          data_type = RENAMES[data_type] if RENAMES[data_type]
-          if data_type == :course || data_type == :section || data_type == :enrollment
-            history[data_type] = cell.to_int
-          else
-            history[data_type] = cell
-          end
+      
+       # extract instructor name
+      firstcell = sheet[0].cells[0].value
+      firstname = firstcell.split(' ')[0]
+      lastname = firstcell.split(' ')[1]
+      name = firstname + " " + lastname
+      
+              history = {}
+        
+        record = []
+        (0..7).each do |i|
+          record[i] = row.cells[i].value
         end
+        
+        decompose = []
+        # term
+        term = record[1].to_s.downcase
+        if term == "spring"
+          s = "A"
+        elsif term == "summer"
+          s = "B"
+        elsif term == "fall"
+          s = "C"
+        end
+        decompose[0] = record[2].to_s + s.to_s
+        # subject and course
+        subcourse = record[0].split(' ')
+        decompose[1] = subcourse[0]
+        if subcourse.length == 2
+          decompose[2] = subcourse[1]
+        else
+          decompose[2] = subcourse[1]+subcourse[2]
+        end
+        # sect
+        decompose[3] = 0
+        # instructor
+        decompose[4] = name
+        # response
+        decompose[5]= 0
+        # enrollment
+        decompose[6] = record[3]
+        # items
+        (7..14).each do |i|
+          decompose[i] = 0
+        end
+        # mses
+        decompose[15] = record[4]
+        # dae
+        decompose[16] = record[5]
+        # ang
+        decompose[17]= record[6]
+        # dang
+        decompose[18] = record[7]
+        # history
+        decompose[19] = 1
 
+        (0..19).each do |i|
+          data_type = DESIRED_DATA[i].to_sym
+          data_type = RENAMES[data_type] if RENAMES[data_type]
+          
+          history[data_type] = decompose[i]
+        end
         historys.push(history) if history.values.reject(&:nil?).size > 0
-      end
     end
     historys
   end
