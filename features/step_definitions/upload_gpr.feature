@@ -63,7 +63,7 @@ Feature: Integrate data uploaded from PDFs containing GPR data
     And User selects GPR file
     And User clicks on the Upload button
     And User clicks on Faculty Member Data link
-    And User clicks on Jennifer Welch link
+    And User clicks on Welch, Jennifer link
     Then User should see a GPR of 3.65
 
   Scenario: User decides not to upload

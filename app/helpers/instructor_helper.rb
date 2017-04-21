@@ -9,6 +9,38 @@ module InstructorHelper
 
     return name
   end
+  
+  def put_last_name(name)
+    last_name = name.split(" ").last
+    first_name = name.split(" ")
+    first_name.delete(first_name.last)
+    first_name.join(" ")
+    first_name.to_s
+    full_name = last_name + ", "
+    for words in first_name
+        full_name = full_name + words + " "
+    end   
+    return full_name
+  end
+  
+  def inst_list(status)
+    inst = Instructor.order(:name).where(status)
+    inst = inst.sort { |a, b| a.name.split(" ").last <=> b.name.split(" ").last }
+    return inst
+  end
+   
+  def term_format(term)
+    year = term[0..3]
+    semester = term[4] 
+    if semester == "A"
+      t = "SP"+ year[2..3]
+    elsif semester == "B"
+      t = "SU" + year[2..3]
+    elsif semester == "C"
+      t = "FA" + year[2..3]
+    end
+    return t
+  end
 
   def get_complete_name(course)
     complete_name = course.subject_course;

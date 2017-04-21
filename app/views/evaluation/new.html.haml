@@ -7,23 +7,32 @@
     %label{for: "evaluation_term", class: "col-sm-2 control-label"} Term
     .col-sm-4
       = f.text_field :term, class: "form-control", placeholder: "e.g. 2015C", required: true
-
+      
     %label{for: "evaluation_subject", class: "col-sm-2 control-label"} Subject
     .col-sm-4
       = f.text_field :subject, class: "form-control", placeholder: "e.g. CSCE", required: true
+    
 
   .form-group
     %label{for: "evaluation_course", class: "col-sm-2 control-label"} Course
     .col-sm-4
       = f.text_field :course, class: "form-control", placeholder: "e.g. 121", required: true
 
+
     %label{for: "evaluation_section", class: "col-sm-2 control-label"} Section
     .col-sm-4
-      = f.text_field :section, class: "form-control", placeholder: "e.g. 501", required: true
+      = f.text_field :section, class: "form-control", placeholder: "e.g. 501", required: true 
+     
+  .form-group 
+    %label{for: "evaluation_responses", class: "col-sm-2 control-label"} Responses
+    .col-sm-4
+      = f.text_field :responses, class: "form-control", placeholder: "e.g. 50", required: true
+      
+
+    = render partial: 'evaluation/enrollment.html.haml', :locals => {:f => f}
+    
 
   .form-group
-    = render partial: 'evaluation/enrollment.html.haml', :locals => {:f => f}
-
     #instructor_select_wrapper
       %label{for: "evaluation_instructor_id", class: "col-sm-2 control-label"} Instructor
       .col-sm-4
@@ -34,6 +43,7 @@
         = f.text_field :instructor, class: "form-control", placeholder: "e.g. Walter Daugherity"
         %p.help-block
           %a#cancel_manual_instructor_entry{href: "#"} Cancel
+    
 
   = render partial: 'evaluation/items.html.haml', :locals => {:f => f}
   .form-group

@@ -10,6 +10,7 @@ class EvaluationReportExporter
     "Section",
     "Course Name",
     "Instructor",
+    "Respones",
     "Enrollment",
     "Item 1 mean",
     "Item 2 mean",
@@ -37,6 +38,7 @@ class EvaluationReportExporter
 
         formula_data = ["Total"]
         5.times { formula_data.push("") }
+        formula_data.push(compute_total_responses(group))
         formula_data.push(compute_total_enrollment(group))
 
         (1..8).each do |x|

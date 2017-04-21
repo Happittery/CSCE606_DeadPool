@@ -15,7 +15,7 @@ class PicaReportImporter
   # These are symbolized version of the expected column headings of all the data we care about.
   # TODO: in the future, it might be nice to make these configurable by the user
   DESIRED_DATA = [
-    :term, :subject, :course, :sect, :instructor, :enrollment,
+    :term, :subject, :course, :sect, :instructor, :responses, :enrollment,
     :item1_mean, :item2_mean, :item3_mean, :item4_mean,
     :item5_mean, :item6_mean, :item7_mean, :item8_mean
   ]

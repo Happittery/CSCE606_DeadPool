@@ -165,9 +165,9 @@ RSpec.describe EvaluationController, type: :controller do
   describe "GET #export" do
     before :each do
       instructor = FactoryGirl.create(:instructor)
-      FactoryGirl.create(:evaluation, term: '2015B', subject: 'CSCE', course: '110',  section: '501', enrollment: '25', item1_mean: '4.5', instructor_id: instructor.id)
-      FactoryGirl.create(:evaluation, term: '2015C', subject: 'CSCE', course: '121',  section: '502', enrollment: '25', item1_mean: '4.5', instructor_id: instructor.id)
-      FactoryGirl.create(:evaluation, term: '2015C', subject: 'CSCE', course: '131',  section: '501', enrollment: '25', item1_mean: '4.5', instructor_id: instructor.id)
+      FactoryGirl.create(:evaluation, term: '2015B', subject: 'CSCE', course: '110',  section: '501', responses: '20', enrollment: '25', item1_mean: '4.5', instructor_id: instructor.id)
+      FactoryGirl.create(:evaluation, term: '2015C', subject: 'CSCE', course: '121',  section: '502', responses: '20', enrollment: '25', item1_mean: '4.5', instructor_id: instructor.id)
+      FactoryGirl.create(:evaluation, term: '2015C', subject: 'CSCE', course: '131',  section: '501', responses: '20', enrollment: '25', item1_mean: '4.5', instructor_id: instructor.id)
       FactoryGirl.create(:course_name, subject_course: 'CSCE 110', name: 'Introduction to Algorithms')
       FactoryGirl.create(:course_name, subject_course: 'CSCE 121', name: 'Advanced Programming')
       FactoryGirl.create(:course_name, subject_course: 'CSCE 131', name: 'Data Structures')

@@ -9,6 +9,7 @@ Given(/^There exists (\d+) evaluation record in the database for instructor (.+)
       course: '110',
       section: (500 + i).to_s,
       instructor: instructor,
+      responses: prng.rand(1..20),
       enrollment: prng.rand(20..50),
       item1_mean: prng.rand(3.0..5.0).round(2),
       item2_mean: prng.rand(3.0..5.0).round(2),
