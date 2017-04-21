@@ -27,8 +27,7 @@ class InstructorController < ApplicationController
 
   def export
     instructor = Instructor.find(id)
-    evaluation_groups = Evaluation.no_missing_data.default_sorted_groups
-    send_data InstructorReportExporter.new(instructor,evaluation_groups).generate, filename: "#{instructor.name}_instructor_report_#{Time.now.strftime('%F')}.csv"
+    send_data InstructorReportExporter.new(instructor).generate, filename: "#{instructor.name}_instructor_report_#{Time.now.strftime('%F')}.csv"
   end
 
   private

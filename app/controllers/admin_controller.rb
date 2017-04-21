@@ -1,3 +1,5 @@
+# this file changes the access
+
 class AdminController < ApplicationController
   before_action :authenticate_user!
   before_action :verify_admin
