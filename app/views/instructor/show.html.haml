@@ -48,7 +48,7 @@
           =compute_mean_student_eval_score(course_section_group).round(2)
         %td= compute_course_level_average(course_section_group, @all_course_groups).round(2)
         %td{ class: (compute_mean_gpr(course_section_group).nil? ? "highlighted" : "" ) }
-          = compute_mean_gpr(course_section_group).try(:round, 2)
+          = compute_mean_gpr(course_section_group)
         %td{ class: (compute_course_level_mean_gpr(course_section_group, @all_course_groups).nil? ? "highlighted" : "" ) }
           = compute_course_level_mean_gpr(course_section_group, @all_course_groups).try(:round, 2)
 
