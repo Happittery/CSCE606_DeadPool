@@ -35,9 +35,9 @@
     - @instructor_course_groups.each do |course_section_group|
       %tr
         %td
-          = course_name_for(course_section_group.first)
+          = course_name_for(course_section_group)
           - if can? :write, :all
-            = course_section_group.first.course_name
+            = course_name_convert(course_section_group)
             (
             = link_to((course_section_group.first.has_course_name? ? "Edit" : "Add Course Name"), new_course_name_path(subject_course: course_section_group.first.subject_course, return_to: instructor_path(@instructor)))
             )

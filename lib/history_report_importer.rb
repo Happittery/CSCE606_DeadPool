@@ -18,7 +18,7 @@ class HistoryReportImporter
   DESIRED_DATA = [
     :term, :subject, :course, :sect, :instructor, :responses, :enrollment,
     :item1_mean, :item2_mean, :item3_mean, :item4_mean,
-    :item5_mean, :item6_mean, :item7_mean, :item8_mean, :mses, :dae, :ang, :dang, :history
+    :item5_mean, :item6_mean, :item7_mean, :item8_mean, :mses, :dae, :ang, :dang, :coursestring, :history
   ]
 
   RENAMES = { :sect => :section }
@@ -96,10 +96,12 @@ class HistoryReportImporter
         subcourse = record[0].split(' ')
         decompose[1] = subcourse[0]
         if subcourse.length == 2
-          decompose[2] = subcourse[1]
+          coursename = subcourse[1]
         else
-          decompose[2] = subcourse[1]+subcourse[2]
+          coursename = subcourse[1]+subcourse[2]
         end
+        coursenum = coursename[0..2]
+        decompose[2] = coursenum.to_i
         # sect
         decompose[3] = 0
         # instructor
@@ -121,15 +123,18 @@ class HistoryReportImporter
         # dang
         decompose[18] = record[7]
         # history
-        decompose[19] = 1
-
-        (0..19).each do |i|
+        decompose[19] = coursename
+        decompose[20] = 1
+        
+        
+        (0..20).each do |i|
           data_type = DESIRED_DATA[i].to_sym
           data_type = RENAMES[data_type] if RENAMES[data_type]
           
           history[data_type] = decompose[i]
         end
         historys.push(history) if history.values.reject(&:nil?).size > 0
+        # Rails.logger.info "testtest #{@historys.inspect}"
       end
     elsif @extension == 'xls'
       @workbook.default_sheet = @workbook.sheets.first

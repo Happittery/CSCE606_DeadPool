@@ -1,13 +1,29 @@
 module InstructorHelper
 
-  def course_name_for(course)
-
-    name = course.subject_course;
-    if (course.section.to_s.starts_with?("2"))
-      name = name + "H"
+  def course_name_for(group)
+    if group.last[:history] == 1
+      result = group[0][:subject]
+      #result = "CSCE 621H"
+      return result
+    else
+      course = group.first
+      name = course.subject_course;
+      if (course.section.to_s.starts_with?("2"))
+        name = name + "H"
+      end
+      return name
     end
-
-    return name
+  end
+  
+  def course_name_convert(group)
+    if group.last[:history] == 1
+      @result = group[0][:coursestring]
+      Rails.logger.info "debug #{@result.inspect}"
+      #result = "621H"
+      return @result
+    else
+      return course_section_group.first.course_name
+    end
   end
   
   def put_last_name(name)
