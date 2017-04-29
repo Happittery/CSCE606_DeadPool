@@ -10,7 +10,7 @@ class EvaluationReportExporter
     "Section",
     "Course Name",
     "Instructor",
-    "Respones",
+    "Responses",
     "Enrollment",
     "Item 1 mean",
     "Item 2 mean",
