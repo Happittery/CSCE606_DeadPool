@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170330023156) do
+ActiveRecord::Schema.define(version: 20170429202516) do
 
   create_table "course_names", force: true do |t|
     t.string   "subject_course"
@@ -40,6 +40,12 @@ ActiveRecord::Schema.define(version: 20170330023156) do
     t.integer  "course"
     t.integer  "section"
     t.integer  "responses"
+    t.decimal  "mses"
+    t.decimal  "dae"
+    t.string   "ang"
+    t.decimal  "dang"
+    t.integer  "history"
+    t.string   "coursestring"
   end
 
   add_index "evaluations", ["instructor_id"], name: "index_evaluations_on_instructor_id"

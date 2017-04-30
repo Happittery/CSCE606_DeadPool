@@ -1,14 +1,21 @@
 module InstructorHelper
 
-  def course_name_for(course)
-
+  def course_name_for(group)
+    course = group.first;
     name = course.subject_course;
     if (course.section.to_s.starts_with?("2"))
       name = name + "H"
     end
-
+    if group.last[:history] == 1
+      coursename = group[0][:coursestring]
+      len = coursename.length
+      if len == 4
+        name = name + coursename[3]
+      end
+    end
     return name
   end
+
   
   def put_last_name(name)
     last_name = name.split(" ").last
@@ -42,17 +49,25 @@ module InstructorHelper
     return t
   end
 
-  def get_complete_name(course)
-    complete_name = course.subject_course;
-    if (course.section.to_s.starts_with?("2"))
-      complete_name = complete_name + "H"
+  def get_complete_name(group)
+    if group.last[:history] == 1
+      coursename = group[0][:coursestring]
+      coursesubject = group[0][:subject]
+      complete_name = coursesubject + " " + coursename
+      
+    
+    else
+      course = group.first
+      complete_name = course.subject_course;
+      if (course.section.to_s.starts_with?("2"))
+        complete_name = complete_name + "H"
+      end
+  
+      name = CourseName.where(subject_course: course.subject_course).first.try(:name)
+      if (!name.nil?)
+        complete_name = complete_name + " " + name
+      end
     end
-
-    name = CourseName.where(subject_course: course.subject_course).first.try(:name)
-    if (!name.nil?)
-      complete_name = complete_name + " " + name
-    end
-
     return complete_name
   end
 
