@@ -34,7 +34,7 @@ class InstructorReportExporter
         course_data.push(compute_total_enrollment(courses))
         course_data.push(compute_mean_student_eval_score(courses).round(2))
         course_data.push(compute_course_level_average(courses,@evaluation_groups).round(2))
-        course_data.push(compute_mean_gpr(courses).try(:round,2))
+        course_data.push(compute_mean_gpr(courses))
         course_data.push(compute_course_level_mean_gpr(courses, @evaluation_groups).try(:round, 2))
         csv << course_data
       end
