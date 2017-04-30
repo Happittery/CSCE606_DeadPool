@@ -33,7 +33,11 @@ module ApplicationHelper
         g.first.course.to_s[0] != group.first.course.to_s[0] || g.first.term != group.first.term
       end
       .map { |g| compute_mean_student_eval_score(g) }
-      return groups.reduce(:+) / groups.size
+      @test = groups[0]
+      Rails.logger.info "test for #{@test.inspect}"
+      len = groups.size
+      nonnil = groups.compact
+      return nonnil.reduce(:+) / len
     end
   end
 
