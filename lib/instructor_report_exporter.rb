@@ -28,7 +28,7 @@ class InstructorReportExporter
       csv << HEADINGS
       @course_groups.each do |courses|
         course_data = []
-        course_data.push(get_complete_name(courses.first))
+        course_data.push(get_complete_name(courses))
         course_data.push(term_format(courses.first.term))
         course_data.push(compute_total_responses(courses))
         course_data.push(compute_total_enrollment(courses))
