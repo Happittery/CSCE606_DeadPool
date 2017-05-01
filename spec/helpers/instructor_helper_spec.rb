@@ -5,13 +5,13 @@ RSpec.describe InstructorHelper, type: :helper do
     it "returns the subject and course number appended" do
       inst = FactoryGirl.create(:instructor)
       FactoryGirl.create(:evaluation, instructor: inst, subject: "CSCE", course: "121")
-      expect(helper.course_name_for(inst.course_section_groups[0].first)).to eq("CSCE 121")
+      expect(helper.course_name_for(inst.course_section_groups[0])).to eq("CSCE 121")
     end
 
     it "appends H to the course name if it is honors" do
       inst = FactoryGirl.create(:instructor)
       FactoryGirl.create(:evaluation, instructor: inst, subject: "CSCE", course: "121", section: 200)
-      expect(helper.course_name_for(inst.course_section_groups[0].first)).to eq("CSCE 121H")
+      expect(helper.course_name_for(inst.course_section_groups[0])).to eq("CSCE 121H")
     end
 
     it "#is_honors" do
@@ -51,6 +51,20 @@ RSpec.describe InstructorHelper, type: :helper do
 
       expect(helper.inst_list("status IS NULL")[0].name).to eq(inst.name)
       expect(helper.inst_list("status IS NULL")[1].name).to eq(inst2.name)
+    end
+  end
+  
+  describe "#get_complete_name" do
+    it "returns full course name" do
+      inst = FactoryGirl.create(:instructor)
+      FactoryGirl.create(:evaluation, instructor: inst, subject: "CSCE", course: "121")
+      expect(helper.get_complete_name(inst.course_section_groups[0])).to eq("CSCE 121")
+    end
+    
+    it "appends H if honors" do
+      inst = FactoryGirl.create(:instructor)
+      FactoryGirl.create(:evaluation, instructor: inst, subject: "CSCE", course: "121", section: 200)
+      expect(helper.get_complete_name(inst.course_section_groups[0])).to eq("CSCE 121H")
     end
   end
   

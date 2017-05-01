@@ -16,7 +16,6 @@ module InstructorHelper
     return name
   end
 
-  
   def put_last_name(name)
     last_name = name.split(" ").last
     first_name = name.split(" ")
@@ -55,7 +54,6 @@ module InstructorHelper
       coursesubject = group[0][:subject]
       complete_name = coursesubject + " " + coursename
       
-    
     else
       course = group.first
       complete_name = course.subject_course;
