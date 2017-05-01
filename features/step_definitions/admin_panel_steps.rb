@@ -14,6 +14,10 @@ Then(/^There should be at least (\d+) (.+)$/) do |num, role|
   expect User.with_role(role.to_sym).length >= num.to_i
 end
 
+#Then(/^User should see message stating Minimum of (\d+) (.+)$/) do |num, role|
+#  expect User.with_role(role.to_sym).length >= num.to_i
+#end
+
 When(/^User visits user management panel page$/) do
   visit '/admin'
 end

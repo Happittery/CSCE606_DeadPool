@@ -31,6 +31,13 @@ Given(/^User has uploaded PICA data$/) do
   click_on("Home")
 end
 
+Given(/^User has uploaded Historical data$/) do
+  visit '/evaluation/import_history'
+  page.attach_file("data_file", Rails.root + 'spec/fixtures/HistoricalReport.xlsx')
+  click_on("Upload")
+  click_on("Home")
+end
+
 Given(/^User has uploaded matching PICA data$/) do
   visit '/evaluation/import'
   page.attach_file("data_file", Rails.root + 'spec/fixtures/StatisticsReport_actual_profs.xlsx')
@@ -90,4 +97,20 @@ end
 
 Then(/^User should not see (.+) as text$/) do |text|
   page.should_not have_content(text)
+end
+
+Then(/^User should see ([0-9]+) new evaluations imported. ([0-9]+) evaluations updated.$/) do |numNew, numUpdate|
+  expect(page).to have_content("#{numNew} new evaluations imported. #{numUpdate} evaluations updated.")
+end
+
+When(/^User selects a non-excel file$/) do
+  page.attach_file("data_file", Rails.root + 'spec/fixtures/ruby-capybara.zip')
+end
+
+Then(/^User should see message stating (.+)$/) do |message|
+  expect(page).to have_content(message)
+end
+
+When(/^User selects excel file$/) do
+  page.attach_file("data_file", Rails.root + 'spec/fixtures/HistoricalReport.xlsx')
 end

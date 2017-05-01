@@ -1,6 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe EvaluationHelper, type: :helper do
+  describe "#compute_total_responses" do
+    it "sums the reponses of group of courses" do
+      eval = FactoryGirl.create(:evaluation, responses: 25)
+      eval2 = FactoryGirl.create(:evaluation, responses: 25)
+      expect(helper.compute_total_responses([eval, eval2])).to eq(50)
+    end
+  end
+
   describe "#compute_total_enrollment" do
     it "sums the enrollment of group of courses" do
       eval = FactoryGirl.create(:evaluation, enrollment: 50)
@@ -27,6 +35,18 @@ RSpec.describe EvaluationHelper, type: :helper do
         item5_mean: 3.9, item6_mean: 3.9, item7_mean: 3.9, item8_mean: 3.9)
       expect(helper.compute_mean_student_eval_score([eval, eval2])).to be_within(0.0001).of(4.0)
     end
+    
+    it "does not compute weighted student eval average if it is historical data" do
+      eval = FactoryGirl.create(:evaluation, enrollment: 50,
+        item1_mean: 4.1, item2_mean: 4.1, item3_mean: 4.1, item4_mean: 4.1,
+        item5_mean: 4.1, item6_mean: 4.1, item7_mean: 4.1, item8_mean: 4.1, 
+        mses: 4.0, dae: 3.9, ang: 3.7, dang: 3.6, history: 1)
+      eval2 = FactoryGirl.create(:evaluation, enrollment: 50,
+        item1_mean: 3.9, item2_mean: 3.9, item3_mean: 3.9, item4_mean: 3.9,
+        item5_mean: 3.9, item6_mean: 3.9, item7_mean: 3.9, item8_mean: 3.9,
+        mses: 4.0, dae: 3.9, ang: 3.7, dang: 3.6, history: 1)
+      expect(helper.compute_mean_student_eval_score([eval,eval2])).to eq(4.0)
+    end
   end
 
   describe "#compute_course_level_average" do
@@ -43,10 +63,23 @@ RSpec.describe EvaluationHelper, type: :helper do
 
     it "computes the course level average from each of the grouped course averages" do
       one_hundred_level_courses.each { |attrs| FactoryGirl.create(:evaluation, attrs) }
-      expect(Evaluation.count).to eq(39)
+      expect(Evaluation.count).to eq(41)
 
       evaluation_groups = Evaluation.default_sorted_groups
       expect(helper.compute_course_level_average(evaluation_groups.first, evaluation_groups)).to be_within(0.005).of(3.83)
+    end
+    
+    it "does not compute course level average if it is historical data" do
+      eval = FactoryGirl.create(:evaluation, enrollment: 50,
+        item1_mean: 4.1, item2_mean: 4.1, item3_mean: 4.1, item4_mean: 4.1,
+        item5_mean: 4.1, item6_mean: 4.1, item7_mean: 4.1, item8_mean: 4.1, 
+        mses: 4.0, dae: 3.9, ang: 3.7, dang: 3.6, history: 1)
+      eval2 = FactoryGirl.create(:evaluation, enrollment: 50,
+        item1_mean: 3.9, item2_mean: 3.9, item3_mean: 3.9, item4_mean: 3.9,
+        item5_mean: 3.9, item6_mean: 3.9, item7_mean: 3.9, item8_mean: 3.9,
+        mses: 4.0, dae: 3.9, ang: 3.7, dang: 3.6, history: 1)
+      evaluation_groups = Evaluation.default_sorted_groups
+      expect(helper.compute_course_level_average([eval,eval2], evaluation_groups)).to eq(3.9)
     end
   end
 
@@ -55,6 +88,25 @@ RSpec.describe EvaluationHelper, type: :helper do
       eval = FactoryGirl.create(:evaluation, gpr: 3.5)
       eval2 = FactoryGirl.create(:evaluation, gpr: 4.0)
       expect(helper.compute_mean_gpr([eval, eval2])).to be_within(0.0001).of(3.75)
+    end
+    
+    it "does not compute gpr if it is historical data" do
+      eval = FactoryGirl.create(:evaluation, enrollment: 50,
+        item1_mean: 4.1, item2_mean: 4.1, item3_mean: 4.1, item4_mean: 4.1,
+        item5_mean: 4.1, item6_mean: 4.1, item7_mean: 4.1, item8_mean: 4.1, 
+        mses: 4.0, dae: 3.9, ang: 3.7, dang: 3.6, history: 1)
+      eval2 = FactoryGirl.create(:evaluation, enrollment: 50,
+        item1_mean: 3.9, item2_mean: 3.9, item3_mean: 3.9, item4_mean: 3.9,
+        item5_mean: 3.9, item6_mean: 3.9, item7_mean: 3.9, item8_mean: 3.9,
+        mses: 4.0, dae: 3.9, ang: 3.7, dang: 3.6, history: 1)
+      expect(helper.compute_mean_gpr([eval,eval2])).to eq(3.7)
+    end
+  end
+  
+  describe "#is_number?" do
+    it "determines if it is a integer/float" do
+      num = "50"
+      expect(helper.is_number?num).to eq(true)
     end
   end
 end
